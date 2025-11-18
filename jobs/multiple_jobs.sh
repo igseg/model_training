@@ -13,4 +13,4 @@ cd ../code/
 module load python/3.12 scipy-stack
 source ~/env_fl/bin/activate
 
-train.py $SLURM_ARRAY_TASK_ID $BATCH_SIZE
+python train.py $SLURM_ARRAY_TASK_ID $BATCH_SIZE
