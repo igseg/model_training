@@ -5,6 +5,7 @@
 #SBATCH --time=01:00:00    
 #SBATCH --mail-user=<isa45@sfu.ca>
 #SBATCH --mail-type=END
+#SBATCH --array=0-20:3
 
 BATCH_SIZE=3
 
