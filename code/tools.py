@@ -8,8 +8,6 @@ from scipy.stats import norm
 from scipy.optimize import brentq, minimize_scalar, bisect
 from scipy.optimize import minimize
 from sympy import Symbol
-import pdb
-import cobyqa
 from scipy.optimize import Bounds, LinearConstraint
 np.seterr(divide='ignore')
 from math import fabs, erf, erfc, exp
