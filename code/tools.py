@@ -8,7 +8,6 @@ from scipy.stats import norm
 from scipy.optimize import brentq, minimize_scalar, bisect
 from scipy.optimize import minimize
 from sympy import Symbol
-from joblib import Parallel, delayed
 import pdb
 import cobyqa
 from scipy.optimize import Bounds, LinearConstraint
