@@ -5,9 +5,9 @@
 #SBATCH --time=01:00:00    
 #SBATCH --mail-user=<isa45@sfu.ca>
 #SBATCH --mail-type=END
-#SBATCH --array=0-20:3
+#SBATCH --array=0-1800:50
 
-BATCH_SIZE=3
+BATCH_SIZE=50
 
 cd ../code/
 module load python/3.12 scipy-stack
