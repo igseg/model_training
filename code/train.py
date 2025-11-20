@@ -155,30 +155,6 @@ def training_1_step(model_name, window, start, batch_size):
         np.save(file_parameter, best_state)
         tmp_df.to_csv(file_estimates, index=False)
 
-def add_iv_estimated_2_step(states, params, tmp_df, r, model_name):
-    for j, t in enumerate(tmp_df['T'].unique()):
-        df_bis = tmp_df[tmp_df['T']==t]
-        for i, idx in enumerate(df_bis.index):
-            tau = tmp_df.loc[idx, 'ttm']
-            S0  = tmp_df.loc[idx, 'S0']
-            k   = tmp_df.loc[idx, 'k']
-            c_obs = tmp_df.loc[idx, 'mid_price']
-            bsiv_obs = tmp_df.loc[idx, 'bsiv']
-            vega = tmp_df.loc[idx, 'vega']
-
-            cumulants = _calc_cumulants(tau, r, states[j], params, model_name)
-            discount = np.exp(-r * tau)
-            ## Def params_cos
-            if model_name == 'heston_2_step':
-                params_cos = [states[j], params[0], params[1], params[2], r, params[3], tau, S0, k]
-
-            ## calc loss
-            option_price = COS_method_call_general(params_cos, discount=discount, K=k, N=128, L=10, c=cumulants, model_name=model_name)
-
-            tmp_df.loc[idx, 'estimated_price'] = option_price
-            iv_est = implied_volatility(option_price, S=S0, K=k, T=tau, r=r, option_type="call")
-            tmp_df.loc[idx, 'iv_estimated'] = iv_est
-    return tmp_df
 
 def add_iv_estimated(best_state, tmp_df, r, N, model_name):
     n_obs = tmp_df.shape[0]
@@ -212,12 +188,12 @@ if __name__ == '__main__':
 
     ## Assign model
 
-    # model_name = 'heston_1_step'
+    model_name = 'heston_1_step'
     # model_name = 'gaussian_jumps_1'
     # model_name = 'variance_gamma_1'
     # model_name = 'cgmy_1'
     # model_name = 'cgmy_sv_1'
-    model_name = 'cgmy4_sv_1'
+    # model_name = 'cgmy4_sv_1'
     time_window = '1day'
 
     start = int(sys.argv[1])
